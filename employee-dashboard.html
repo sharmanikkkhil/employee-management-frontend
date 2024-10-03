@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Add your CSS styling here */
         body {
             background: #eef2f5;
             font-family: Arial, sans-serif;
@@ -49,7 +48,6 @@
             flex: 1;
         }
 
-        /* Payslip download button */
         .payslip-btn {
             display: inline-block;
             padding: 10px 15px;
@@ -63,47 +61,59 @@
         .payslip-btn:hover {
             background: #218838;
         }
+
+        @media (max-width: 600px) {
+            .detail {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+
+            .detail label {
+                width: auto;
+                margin-bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="dashboard">
-    <h2>Welcome, ${employee.fullName}</h2>
+    <h2>Welcome, <span th:text="${employee.fullName}">Employee Name</span></h2>
 
     <!-- Personal Details Section -->
     <div class="section">
         <h3>Personal Details</h3>
         <div class="detail">
             <label>Full Name:</label>
-            <span>${employee.fullName}</span>
+            <span th:text="${employee.fullName}"></span>
         </div>
         <div class="detail">
             <label>Date of Birth:</label>
-            <span>${employee.dob}</span>
+            <span th:text="${employee.dob}"></span>
         </div>
         <div class="detail">
             <label>Gender:</label>
-            <span>${employee.gender}</span>
+            <span th:text="${employee.gender}"></span>
         </div>
         <div class="detail">
             <label>Personal Email:</label>
-            <span>${employee.personalEmail}</span>
+            <span th:text="${employee.personalEmail}"></span>
         </div>
         <div class="detail">
             <label>Mobile:</label>
-            <span>${employee.mobile}</span>
+            <span th:text="${employee.mobile}"></span>
         </div>
         <div class="detail">
             <label>Emergency Contact:</label>
-            <span>${employee.emergencyContact}</span>
+            <span th:text="${employee.emergencyContact}"></span>
         </div>
         <div class="detail">
             <label>Current Address:</label>
-            <span>${employee.currentAddressLine1}, ${employee.currentAddressLine2}, ${employee.currentPincode}</span>
+            <span th:text="${employee.currentAddressLine1} + ', ' + ${employee.currentAddressLine2} + ', ' + ${employee.currentPincode}"></span>
         </div>
         <div class="detail">
             <label>Permanent Address:</label>
-            <span>${employee.permanentAddressLine1}, ${employee.permanentAddressLine2}, ${employee.permanentPincode}</span>
+            <span th:text="${employee.permanentAddressLine1} + ', ' + ${employee.permanentAddressLine2} + ', ' + ${employee.permanentPincode}"></span>
         </div>
     </div>
 
@@ -112,31 +122,31 @@
         <h3>Professional Details</h3>
         <div class="detail">
             <label>Employment Code:</label>
-            <span>${employee.employeeCode}</span>
+            <span th:text="${employee.employeeCode}"></span>
         </div>
         <div class="detail">
             <label>Company Email:</label>
-            <span>${employee.companyEmail}</span>
+            <span th:text="${employee.companyEmail}"></span>
         </div>
         <div class="detail">
             <label>Date of Joining:</label>
-            <span>${employee.dateOfJoining}</span>
+            <span th:text="${employee.dateOfJoining}"></span>
         </div>
         <div class="detail">
             <label>Office Phone:</label>
-            <span>${employee.officePhone}</span>
+            <span th:text="${employee.officePhone}"></span>
         </div>
         <div class="detail">
             <label>Reporting Manager:</label>
-            <span>${employee.reportingManager}</span>
+            <span th:text="${employee.reportingManager}"></span>
         </div>
         <div class="detail">
             <label>HR Name:</label>
-            <span>${employee.hrName}</span>
+            <span th:text="${employee.hrName}"></span>
         </div>
         <div class="detail">
             <label>Employment History:</label>
-            <span>${employee.employmentHistory}</span>
+            <span th:text="${employee.employmentHistory}"></span>
         </div>
     </div>
 
@@ -145,19 +155,19 @@
         <h3>Project Details</h3>
         <div class="detail">
             <label>Current Project:</label>
-            <span>${employee.currentProject}</span>
+            <span th:text="${employee.currentProject}"></span>
         </div>
         <div class="detail">
             <label>Start Date:</label>
-            <span>${employee.startDate}</span>
+            <span th:text="${employee.startDate}"></span>
         </div>
         <div class="detail">
             <label>End Date:</label>
-            <span>${employee.endDate}</span>
+            <span th:text="${employee.endDate}"></span>
         </div>
         <div class="detail">
             <label>Project Reporting Manager:</label>
-            <span>${employee.reportingManagerProject}</span>
+            <span th:text="${employee.reportingManagerProject}"></span>
         </div>
     </div>
 
@@ -166,31 +176,31 @@
         <h3>Finance Details</h3>
         <div class="detail">
             <label>PAN Card:</label>
-            <span>${employee.panCard}</span>
+            <span th:text="${employee.panCard}"></span>
         </div>
         <div class="detail">
             <label>Aadhar Card:</label>
-            <span>${employee.aadharCard}</span>
+            <span th:text="${employee.aadharCard}"></span>
         </div>
         <div class="detail">
             <label>Bank Name:</label>
-            <span>${employee.bankName}</span>
+            <span th:text="${employee.bankName}"></span>
         </div>
         <div class="detail">
             <label>Branch:</label>
-            <span>${employee.branch}</span>
+            <span th:text="${employee.branch}"></span>
         </div>
         <div class="detail">
             <label>IFSC Code:</label>
-            <span>${employee.ifscCode}</span>
+            <span th:text="${employee.ifscCode}"></span>
         </div>
         <div class="detail">
             <label>CTC Breakup:</label>
-            <span>${employee.ctcBreakup}</span>
+            <span th:text="${employee.ctcBreakup}"></span>
         </div>
 
         <!-- Payslip Download -->
-        <a href="payslips/${employee.employeeCode}-payslip.pdf" class="payslip-btn" download>Download Last 6 Payslips</a>
+        <a th:href="@{payslips/${employee.employeeCode}-payslip.pdf}" class="payslip-btn" download>Download Last 6 Payslips</a>
     </div>
 </div>
 
