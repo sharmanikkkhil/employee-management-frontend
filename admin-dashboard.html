@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <style>
         body {
@@ -153,7 +153,6 @@
 </head>
 <body>
     <h1>Admin Dashboard</h1>
-    <br>
     <div class="dashboard">
         <nav>
             <a class="btn" href="add-employee.html" role="button">Add Employee</a>
@@ -171,29 +170,25 @@
                 </tr>
             </thead>
             <tbody>
-                <c:choose>
-                    <c:when test="${empty ulist}">
-                        <tr>
-                            <td colspan="6" class="no-users">No user found</td>
-                        </tr>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var='u' items='${ulist}'>
-                            <tr>
-                                <td><c:out value='${u.employmentcode}'/></td>
-                                <td><c:out value='${u.name}'/></td>
-                                <td><c:out value='${u.email}'/></td>
-                                <td><c:out value='${u.manager}'/></td>
-                                <td><c:out value='${u.currentproject}'/></td>
-                                <td class="actions">
-                                    <a class="action-btn view" href="view/${u.employmentcode}">View</a>
-                                    <a class="action-btn edit" href="edit-employee.html">Edit</a>
-                                    <a class="action-btn delete" href="delete/${u.employmentcode}">Delete</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
+                <th:block th:if="${#lists.isEmpty(ulist)}">
+                    <tr>
+                        <td colspan="6" class="no-users">No user found</td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${#lists.isEmpty(ulist)}">
+                    <tr th:each="u : ${ulist}">
+                        <td th:text="${u.employmentcode}"></td>
+                        <td th:text="${u.name}"></td>
+                        <td th:text="${u.email}"></td>
+                        <td th:text="${u.manager}"></td>
+                        <td th:text="${u.currentproject}"></td>
+                        <td class="actions">
+                            <a class="action-btn view" th:href="@{/view/{employmentcode}(employmentcode=${u.employmentcode})}">View</a>
+                            <a class="action-btn edit" href="edit-employee.html">Edit</a>
+                            <a class="action-btn delete" th:href="@{/delete/{employmentcode}(employmentcode=${u.employmentcode})}">Delete</a>
+                        </td>
+                    </tr>
+                </th:block>
             </tbody>
         </table>
     </div>
